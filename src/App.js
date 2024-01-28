@@ -3,6 +3,7 @@ import './App.css';
 
 function App() {
   const [inputValue, setInputValue] = useState('');
+  const [responseData, setResponseData] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,6 +18,7 @@ function App() {
       });
   
       const data = await response.json();
+      setResponseData(data);
     } catch (error) {
       console.error('Error:', error);
     }
@@ -32,6 +34,12 @@ function App() {
         />
         <button type="submit">Submit</button>
       </form>
+
+      {responseData && (
+        <div>
+          <h2>Le resultat est : {JSON.stringify(responseData.result, null, 2)}</h2>
+        </div>
+      )}
     </div>
   );
 }
