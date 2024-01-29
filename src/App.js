@@ -36,6 +36,22 @@ function App() {
     }
   };
 
+  const handleExportCSV = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/export-csv/');
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(new Blob([blob]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `exported_data_${new Date().toISOString()}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+    } catch (error) {
+      console.error('Error exporting CSV:', error);
+    }
+  };
+
   useEffect(() => {
     fetchCalculations();
   }, []);
@@ -74,6 +90,8 @@ function App() {
           ))}
         </tbody>
       </table>
+
+      <h1>Exporter la data en CSV : <button className="export" onClick={handleExportCSV}>Export CSV</button></h1>
     </div>
   );
 }
