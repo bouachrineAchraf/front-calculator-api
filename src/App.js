@@ -8,7 +8,7 @@ function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       const response = await fetch(`http://localhost:8000/calculations/${inputValue}`, {
         method: 'POST',
@@ -17,7 +17,7 @@ function App() {
         },
         body: JSON.stringify({ data: inputValue }),
       });
-  
+
       const data = await response.json();
       setResponseData(data);
       fetchCalculations();
@@ -57,7 +57,7 @@ function App() {
   }, []);
   return (
     <div className="App">
-        <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           value={inputValue}
@@ -92,6 +92,14 @@ function App() {
       </table>
 
       <h1>Exporter la data en CSV : <button className="export" onClick={handleExportCSV}>Export CSV</button></h1>
+
+      <div>
+        <h1>To get The Documentation: <a href="http://localhost:8000/docs" target="_blank">
+          <button>View Documentation</button>
+        </a></h1>
+
+      </div>
+
     </div>
   );
 }
